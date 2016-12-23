@@ -11,14 +11,24 @@
 # -================================================================-
 
 import speech_recognition as sr
-import os
+import pyttsx,os
 import commands
+import pyaudio
 
+
+# To speak
+engine = pyttsx.init()
 # Record Audio
 r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("What do you need sir?")
-    audio = r.listen(source)
+try:
+    with sr.Microphone() as source:
+        speak("What do you need sir?")
+        # print "What do you need sir?"
+        audio = r.listen(source)
+
+except Exception as e:
+    print "Arggg, something goes wrong!"
+    raise e
 
 # Speech recognition using Google Speech Recognition
 try:
@@ -32,6 +42,10 @@ try:
         else:
             print "You said "+r.recognize_google(audio)
 except sr.UnknownValueError:
-    print("What do you said?")
+    print "What do you said?"
 except sr.RequestError as e:
-    print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    print "Could not request results from Google Speech Recognition service; {0}".format(e)
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()

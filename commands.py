@@ -1,3 +1,4 @@
+#coding: UTF-8
 class Commands():
     """Here you'll put a list of your commands."""
     def __init__(self):
@@ -6,7 +7,9 @@ class Commands():
         # Add your commands in the dict
         # {howToCallIt:command}
         return {'firefox': 'firefox &',
-                'music':'totem &'}
+                'music':'totem &',
+		        'metallica':'totem ~/Música/Metallica\ \(Black\ Album\)\ -\ 1991/ &'
+		}
 
 
 
