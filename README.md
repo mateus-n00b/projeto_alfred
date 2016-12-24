@@ -3,7 +3,7 @@ Este programa utiliza a API da Google (Google Speech API) para reconhecimento de
 Esta API permite transformar comandos de voz em strings, que por sua vez podem ser comandos
 a serem executados na sua maquina. 
 
-# Dependencias
+## Dependencias
 Para instalar a API acesse:
 https://pythonspot.com/en/speech-recognition-using-google-speech-api/
 
@@ -16,7 +16,7 @@ Para instalar o pyttsx (para a fala) execute o comando:
 # Testado nas distribuilcoes
 **Debia Jessie**
 
-# Como usar
+## Como usar
 No arquivo commands.py estao localizados os comandos que o usuario deve definir. 
 Estao organizados da seguinte forma {NickDoComando:Comando}. 
 
