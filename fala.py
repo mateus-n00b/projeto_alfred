@@ -10,35 +10,41 @@ engine = pyttsx.init()
 # GAMBIS
 hour = time.asctime().split(' ')[3].split(':')[0]
 
-if int(hour) < 12:
-   engine.say('Good morning, Mr. '+os.getenv("USER"))
-elif int(hour) >= 12 and int(hour) < 18:
-    engine.say('Good aftermoon, Mr. '+os.getenv("USER"))
-elif int(hour) >= 18 and int(hour) < 00:
-    engine.say('Good night, Mr. '+os.getenv("USER"))
-
-def readABook(book):
-    a = open(book, 'r')
-    for x in a.readlines():
-        engine.say(x)
-        time.sleep(0.3)
+def speak(text):
+    engine.say(text)
     engine.runAndWait()
 
+if int(hour) < 12:
+   speak('Good morning, Mr. '+os.getenv("USER"))
+elif int(hour) >= 12 and int(hour) < 18:
+    speak('Good aftermoon, Mr. '+os.getenv("USER"))
+elif int(hour) >= 18 and int(hour) < 00:
+    speak('Good night, Mr. '+os.getenv("USER"))
+
+def readABook(book):
+    fala = pyttsx.init()
+    a = open(book, 'r')
+    for x in a.readlines():
+        fala.say(x)
+        time.sleep(0.3)
+    sys.exit()
+
 def checkSystem():
-     speak = pyttsx.init()
+     fala = pyttsx.init()
      os.system('bash check.sh')
      try:
-        # speak.say('Ok, now checking memory usage')
         a = open("/tmp/outLogs", 'r')
         for x in a.readlines():
-            speak.say(x)
+            fala.say(x)
             time.sleep(0.3)
         sys.exit()
      except:
-            speak.say("Arggg, something goes wrong!")
-     speak.runAndWait()
+            speak("Arggg, something goes wrong!")
 
+def addCommand(cmd):
+    # Ugly command to add commands
+    # os.system('sed -i "s/#,/,\'%s\':\'%s\'\\n#,/" commands.py' % (cmd.split(':')[0],cmd.split(':')[1]))
+    os.system('sed -i "s/#,/,\'%s\':\'%s\'\\n#,/" commands.py' % (cmd[0],cmd[1]))
 
-engine.runAndWait()
 # readABook("/tmp/outLogs")
-checkSystem()
+# checkSystem()

@@ -12,7 +12,7 @@
 
 import speech_recognition as sr
 import pyttsx,os
-import commands
+import commands,time
 import pyaudio
 
 
@@ -20,6 +20,29 @@ import pyaudio
 engine = pyttsx.init()
 # Record Audio
 r = sr.Recognizer()
+# Audio var
+global audio
+
+# +==============================+
+#          FUNCTIONS
+# +==============================+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+def addCommand(cmd):
+    # CMD is a tuple
+        os.system('sed -i "s/#,/,\'%s\':\'%s\'\\n#,/" commands.py' % (cmd[0],cmd[1]))
+
+def listen():
+    with sr.Microphone() as source:
+        speak("What do you need sir?")
+        # print "What do you need sir?"
+        audio = r.listen(source)
+    return audio
+# +==============================+
+#              MAIN
+# +==============================+
 try:
     with sr.Microphone() as source:
         speak("What do you need sir?")
@@ -27,7 +50,7 @@ try:
         audio = r.listen(source)
 
 except Exception as e:
-    print "Arggg, something goes wrong!"
+    speak("Arggg, something goes wrong!")
     raise e
 
 # Speech recognition using Google Speech Recognition
@@ -39,13 +62,22 @@ try:
         if x in str(r.recognize_google(audio)).lower():
             os.system(cmds[x])
             break
+
+        elif 'addiction' in str(r.recognize_google(audio)).lower():
+             print ("What is the nick of the command?")
+             nick = listen()
+             nick = str(r.recognize_google(nick)).lower()
+             print ("What is the command?")
+             cmd = listen()
+             cmd = str(r.recognize_google(cmd)).lower()
+
+             tp = (nick,cmd)
+             addCommand(tp)
+             break
         else:
-            print "You said "+r.recognize_google(audio)
+            speak("You said "+r.recognize_google(audio))
 except sr.UnknownValueError:
-    print "What do you said?"
+    speak("What do you said?")
 except sr.RequestError as e:
     print "Could not request results from Google Speech Recognition service; {0}".format(e)
-
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+    time.sleep(1)
