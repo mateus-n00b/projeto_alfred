@@ -13,7 +13,7 @@ O PyAudio deve ser instalado da seguinte forma:
 Para instalar o pyttsx (para a fala) execute o comando:
 **sudo pip install pyttsx**
 
-# Testado nas distribuilcoes
+## Testado nas distribuilcoes
 **Debia Jessie**
 
 ## Como usar
