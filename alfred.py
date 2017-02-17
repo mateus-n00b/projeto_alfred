@@ -31,13 +31,12 @@ def speak(text):
     engine.runAndWait()
 
 def addCommand(cmd):
-    # CMD is a tuple
         os.system('sed -i "s/#,/,\'%s\':\'%s\'\\n#,/" commands.py' % (cmd[0],cmd[1]))
 
 def listen():
     with sr.Microphone() as source:
         speak("What do you need sir?")
-        # print "What do you need sir?"
+        print "What do you need sir?"
         audio = r.listen(source)
     return audio
 # +==============================+
@@ -46,7 +45,7 @@ def listen():
 try:
     with sr.Microphone() as source:
         speak("What do you need sir?")
-        # print "What do you need sir?"
+        print "What do you need sir?"
         audio = r.listen(source)
 
 except Exception as e:
@@ -56,11 +55,11 @@ except Exception as e:
 # Speech recognition using Google Speech Recognition
 try:
     # Get the commands from the commands.py
-    cmds = commands.Commands()
-    cmds = cmds.getCommand()
+    cmds = commands.Commands().getCommand()
     for x in cmds.keys():
         if x in str(r.recognize_google(audio)).lower():
             os.system(cmds[x])
+            speak("Executing %s" % (x))
             break
 
         elif 'addiction' in str(r.recognize_google(audio)).lower():
@@ -73,11 +72,10 @@ try:
 
              tp = (nick,cmd)
              addCommand(tp)
-             break
         else:
-            speak("You said "+r.recognize_google(audio))
+            print ("You said "+r.recognize_google(audio))
 except sr.UnknownValueError:
-    speak("What do you said?")
+    print ("What do you said?")
 except sr.RequestError as e:
     print "Could not request results from Google Speech Recognition service; {0}".format(e)
     time.sleep(1)

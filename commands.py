@@ -16,8 +16,11 @@ class Commands():
         # {howToCallIt:command}
         return {'firefox': 'firefox &',
                 'music':'totem &',
-		        'metallica':'totem ~/Música/Metallica\ \(Black\ Album\)\ -\ 1991/ &'                
-,'clear':'clear'
+		        'metallica':'totem ~/Música/Metallica\ \(Black\ Album\)\ -\ 1991/ &'
+                ,'clear':'clear',
+                'code':'atom',
+                'memory':'df -h'
+,'cd':'cd'
 #,
                 }
 
