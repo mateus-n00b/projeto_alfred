@@ -14,7 +14,7 @@ Para instalar o pyttsx (para a fala) execute o comando:
 **sudo pip install pyttsx**
 
 ## Testado nas distribuilcoes
-**Debia Jessie**
+**Debian Jessie**
 
 ## Como usar
 No arquivo commands.py estao localizados os comandos que o usuario deve definir. 
