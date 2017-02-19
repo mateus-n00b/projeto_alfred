@@ -12,6 +12,7 @@
 
 import speech_recognition as sr
 import pyttsx,os
+from subprocess import Popen, PIPE
 import commands,time
 import pyaudio
 
@@ -35,10 +36,10 @@ def addCommand(cmd):
 
 def listen():
     with sr.Microphone() as source:
-        speak("What do you need sir?")
-        print "What do you need sir?"
+        speak("I'm ready to help you")
+        print "I'm ready to help you"
         audio = r.listen(source)
-    return audio
+    return str(r.recognize_google(audio)).lower()
 # +==============================+
 #              MAIN
 # +==============================+
@@ -65,15 +66,22 @@ try:
         elif 'addiction' in str(r.recognize_google(audio)).lower():
              print ("What is the nick of the command?")
              nick = listen()
-             nick = str(r.recognize_google(nick)).lower()
              print ("What is the command?")
              cmd = listen()
-             cmd = str(r.recognize_google(cmd)).lower()
 
              tp = (nick,cmd)
              addCommand(tp)
+
+        elif 'search' in str(r.recognize_google(audio)).lower():
+            search = listen()
+            cmd = Popen(["bash engine.sh {0}".format(search)], stdout=PIPE, shell=True)
+            saida, erro = cmd.communicate()
+            speak("Showing the results")
+            print saida,erro
+
         else:
             print ("You said "+r.recognize_google(audio))
+
 except sr.UnknownValueError:
     print ("What do you said?")
 except sr.RequestError as e:

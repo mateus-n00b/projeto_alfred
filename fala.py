@@ -18,7 +18,7 @@ if int(hour) < 12:
    speak('Good morning, Mr. '+os.getenv("USER"))
 elif int(hour) >= 12 and int(hour) < 18:
     speak('Good aftermoon, Mr. '+os.getenv("USER"))
-elif int(hour) >= 18 and int(hour) < 00:
+elif int(hour) >= 18 and int(hour) < 23 :
     speak('Good night, Mr. '+os.getenv("USER"))
 
 def readABook(book):
@@ -31,13 +31,14 @@ def readABook(book):
 
 def checkSystem():
      fala = pyttsx.init()
-     os.system('bash check.sh')
+    #  os.system('bash check.sh')
      try:
         a = open("/tmp/outLogs", 'r')
         for x in a.readlines():
             fala.say(x)
             time.sleep(0.3)
-        sys.exit()
+        # sys.exit()
+        engine.runAndWait()        
      except:
             speak("Arggg, something goes wrong!")
 
@@ -47,4 +48,4 @@ def addCommand(cmd):
     os.system('sed -i "s/#,/,\'%s\':\'%s\'\\n#,/" commands.py' % (cmd[0],cmd[1]))
 
 # readABook("/tmp/outLogs")
-# checkSystem()
+checkSystem()
